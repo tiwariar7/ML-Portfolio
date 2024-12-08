@@ -42,7 +42,10 @@ git_command("git add .")
 # Commit the changes
 git_command('git commit -m "Added all project files"')
 
+# Remove the existing remote origin and add it again
+git_command("git remote remove origin")
+git_command("git remote add origin https://github.com/tiwariar7/ML-Portfolio.git")
+
 # Push to GitHub
 git_command("git branch -M main")
-git_command("git remote add origin https://github.com/tiwariar7/ML-Portfolio.git")
 git_command("git push -u origin main")
