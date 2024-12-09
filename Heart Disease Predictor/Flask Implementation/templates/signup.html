@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            display: flex;
+            width: 800px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .form-container {
+            flex: 1;
+            padding: 40px;
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-container input {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-container button {
+            background: #00c1a1;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background: #009b85;
+        }
+        .oauth-buttons a {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            background: #ddd;
+            color: black;
+            border-radius: 5px;
+        }
+        .welcome {
+            background: #00c1a1;
+            color: #fff;
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        .welcome h2 {
+            margin-bottom: 10px;
+        }
+        .welcome p {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Predict Heart Disease Risk</h2>
+        <p>AI-Powered Health Prediction Tool</p>
+    </div>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/about">About Project</a>
+        <a href="/contact">Contact</a>
+        <a href="/data">DataBase</a>
+        {% if 'user' in session %}
+            <a href="/dashboard" class="account">
+                <img src="{{ url_for('static', filename='a.png') }}" alt="Account" style="width: 30px; height: 30px; border-radius: 50%;"></a>
+        {% else %}
+            <a href="/login" style="float: right;">Login</a>
+        {% endif %}
+    </div>
+    <div class="login-container">
+        <div class="welcome">
+            <h2>Welcome!</h2>
+            <p>Please sign up with your details to get started</p>
+            <form action="/login" method="POST">
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+        <div class="form-container">
+            <h2>Sign Up</h2>
+            <form action="/signup" method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+            
+            <!-- Flash message for errors -->
+            <div class="error-message" style="color: red;">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                {% endwith %}
+            </div>
+            <h3>Or</h3>
+            <div class="oauth-buttons">
+                <a href="/login/google">Sign up with Google</a>
+                <a href="/login/github">Sign up with GitHub</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

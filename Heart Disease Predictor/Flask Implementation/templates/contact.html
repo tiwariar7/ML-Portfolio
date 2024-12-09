@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Disease Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('{{ url_for("static", filename="bg.png") }}');
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .header {
+            background-color: #00539C;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .nav a:hover {
+            background-color: #00539C;
+        }
+        .container {
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            margin: 40px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        }
+        .contact-details h2 {
+            font-size: 2em;
+            color: #00539C;
+            text-align: center;
+        }
+        .contact-details p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .contact-details a {
+            color: #00539C;
+            text-decoration: none;
+        }
+        .contact-details a:hover {
+            text-decoration: underline;
+        }
+        form {
+            margin: 20px auto;
+            text-align: center;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #333;
+            padding: 10px;
+            text-align: left;
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #00539C;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #003f73;
+        }
+        .review-section {
+            margin: 40px auto;
+            text-align: center;
+        }
+        .review-section h2 {
+            color: #00539C;
+            margin-bottom: 20px;
+        }
+        .reviews {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .review {
+            width: 300px;
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .review h3 {
+            color: #333;
+        }
+        .review p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Predict Heart Disease Risk</h2>
+        <p>AI-Powered Health Prediction Tool</p>
+    </div>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/about">About Project</a>
+        <a href="/contact">Contact</a>
+        <a href="/data">DataBase</a>
+        {% if 'user' in session %}
+            <a href="/dashboard" class="account">
+                <img src="{{ url_for('static', filename='a.png') }}" alt="Account" style="width: 30px; height: 30px; border-radius: 50%;"></a>
+        {% else %}
+            <a href="/login" style="float: right;">Login</a>
+        {% endif %}
+    </div>
+    <div class="container">
+        <div class="contact-details">
+            <h2>Get in Touch</h2>
+            <p><strong>Email:</strong> <a href="mailto:tiwariar_9@rknec.edu">tiwariar_9@rknec.edu</a></p>
+            <p><strong>Phone:</strong> <a href="tel:+919373610991">9373610991</a></p>
+        </div>
+        <form method="POST">
+            <table>
+                <tr>
+                    <td><label for="name">Name:</label></td>
+                    <td><input type="text" id="name" name="name" required></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input type="email" id="email" name="email" required></td>
+                </tr>
+                <tr>
+                    <td><label for="message">Message:</label></td>
+                    <td><textarea id="message" name="message" rows="4" required></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;"><input type="submit" value="Submit"></td>
+                </tr>
+            </table>
+        </form>
+        
+        <!-- Review Section -->
+        <div class="review-section">
+            <h2>What Our Customers Say</h2>
+            <div class="reviews">
+                {% for review in reviews %}
+                <div class="review">
+                    <h3>{{ review.name }}</h3>
+                    <p>{{ review.review }}</p>
+                    <p>Rating: {{ '⭐' * review.rating }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <form method="POST">
+                <h3>Leave a Review</h3>
+                <input type="text" id="reviewer" name="reviewer" placeholder="Your Name" required><br>
+                <textarea id="review-text" name="review-text" placeholder="Write your review..." rows="4" required></textarea><br>
+                <label for="rating">Rating:</label>
+                <select id="rating" name="rating" required>
+                    <option value="5">⭐⭐⭐⭐⭐</option>
+                    <option value="4">⭐⭐⭐⭐</option>
+                    <option value="3">⭐⭐⭐</option>
+                    <option value="2">⭐⭐</option>
+                    <option value="1">⭐</option>
+                </select><br>
+                <input type="submit" value="Submit Review">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
