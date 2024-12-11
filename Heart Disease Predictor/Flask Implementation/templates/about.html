@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Project - Disease Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('{{ url_for("static", filename="bg.png") }}');
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .header {
+            background-color: #00539C;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .nav a:hover {
+            background-color: #00539C;
+        }
+        .container {
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            margin: 40px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #00539C;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+        }
+        .download-links {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 50px;
+        }
+
+        /* Style for each download box */
+        .download-box {
+            display: inline-block;
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border: 2px solid #000;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition for background and text color */
+        }
+        .download-box:hover {
+            background-color: #003366;
+        }
+        .download-box:hover a {
+            color: black; 
+        }
+
+        .download-box a {
+            color: inherit; 
+            text-decoration: none; 
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Predict Heart Disease Risk</h2>
+        <p>AI-Powered Health Prediction Tool</p>
+    </div>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/about">About Project</a>
+        <a href="/contact">Contact</a>
+        <a href="/data">DataBase</a>
+        {% if 'user' in session %}
+            <a href="/dashboard" class="account">
+                <img src="{{ url_for('static', filename='a.png') }}" alt="Account" style="width: 30px; height: 30px; border-radius: 50%;"></a>
+        {% else %}
+            <a href="/login" style="float: right;">Login</a>
+        {% endif %}
+    </div>
+    <div class="container">
+        <h2>About This Project</h2><br>
+        <p><strong>Enhanced Heart Disease Risk Classification Model</strong></p><br>
+        <h3>Dataset Overview and Preprocessing</h3><br>
+        <p>This project reimagines heart disease risk prediction by transforming raw medical data into actionable insights. The dataset underwent rigorous cleaning, including the removal of outliers and the normalization of key features like blood pressure, weight, and height. Advanced clustering techniques, like K-Modes, enabled separation of patterns by gender, revealing distinct health profiles for males and females. </p><br>
+        <h3>Feature Engineering and Target Encoding</h3><br>
+        <p>The dataset was enhanced with calculated metrics such as Body Mass Index (BMI) and Mean Arterial Pressure (MAP), which were categorized into meaningful groups. Additionally, age was segmented into cohorts to better reflect risk stratification. Multi-class target encoding expanded the scope of prediction, enabling classification into five distinct categories:</p> <br>
+<ul>
+    <li>Low Risk</li>
+    <li>Coronary Artery Disease</li>
+    <li>Hypertension-Related Disease</li>
+    <li>Diabetes-Related Disease</li>
+    <li>Multiple Risk Factors</li>
+</ul><br><br>
+<p>These enhancements enriched the dataset, ensuring a robust foundation for model training.</p>
+<br>
+<h3>Data Visualization</h3><br>
+<p>
+    Data visualization played a pivotal role in uncovering trends and correlations within the dataset. Seaborn and Matplotlib were utilized to present clear, compelling visuals. For instance:
+</p><br><br>
+<ul>
+    <li>Heatmaps showcased correlations among risk factors.</li>
+    <li>Bar charts highlighted the prevalence of various disease types.</li>
+    <li>ROC curves provided a visual evaluation of model performance, emphasizing reliability.</li>
+</ul><br><br>
+
+<img src="{{ url_for('static', filename='flowchart.png') }}" alt="Data Processing Flowchart" class="flowchart-img">
+<br><br>
+<h3>Model Training</h3><br>
+<p>
+    A suite of advanced machine learning algorithms, including Decision Trees, Random Forests, MLP (Multi-Layer Perceptron), and XGBoost, was trained on the preprocessed data. Each model was fine-tuned with hyperparameter optimization to ensure peak performance. Notably, Random Forest emerged as a standout model following rigorous GridSearchCV optimization.
+</p><br>
+<br>
+<h3>Evaluation Metrics</h3><br>
+<p><br>
+    To ensure accurate predictions, multiple evaluation metrics were analyzed:
+</p><br>
+<ul>
+    <li><strong>Accuracy:</strong> Measured overall correctness.</li>
+    <li><strong>Precision:</strong> Evaluated true positive predictions.</li>
+    <li><strong>Recall:</strong> Highlighted the model’s sensitivity.</li>
+    <li><strong>F1 Score:</strong> Balanced precision and recall.</li>
+    <li><strong>AUC (Area Under the Curve):</strong> Provided insight into the model’s ability to distinguish between classes.</li>
+</ul><br><br>
+<p>A comprehensive confusion matrix and classification report confirmed the effectiveness of the chosen models in accurately categorizing heart disease risk levels.</p>
+<br>
+<h3>Real-Time Prediction</h3><br>
+<p>
+    The project includes an interactive prediction system that allows users to input personal health data to receive real-time risk assessments. This feature bridges the gap between theoretical modeling and practical application, empowering individuals with personalized insights into their heart health.
+</p><br>
+</div><br><br>
+<div class="download-links">
+    <div class="download-box">
+        <a href="{{ url_for('static', filename='Heart Disease Predector.ipynb') }}" download>
+            <strong>Download Notebook (.ipynb)</strong>
+        </a>
+    </div>
+
+    <div class="download-box">
+        <a href="{{ url_for('static', filename='framingham_modified.csv') }}" download>
+            <strong>Dataset (csv)</strong>
+        </a>
+    </div>
+</div>
+</div>
+</body>
+</html>
+

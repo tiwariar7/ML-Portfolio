@@ -1,0 +1,199 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Predictor</title>
+    <style>
+        
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('{{ url_for("static", filename="bg.png") }}');
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .header {
+            background-color: #00539C;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .nav a:hover {
+            background-color: #00539C;
+        }
+        .container {
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            margin: 40px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #00539C;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #00539C;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #003366;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #00796B;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Predict Heart Disease Risk</h2>
+        <p>AI-Powered Health Prediction Tool</p>
+    </div>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/about">About Project</a>
+        <a href="/contact">Contact</a>
+        <a href="/data">DataBase</a>
+        {% if 'user' in session %}
+            <a href="/dashboard" class="account">
+                <img src="{{ url_for('static', filename='a.png') }}" alt="Account" style="width: 30px; height: 30px; border-radius: 50%;"></a>
+        {% else %}
+            <a href="/login" style="float: right;">Login</a>
+        {% endif %}
+    </div>
+    <div class="container">
+        <h3>Fill in the form to check results:</h3>
+        <form id="prediction-form" method="POST" action="/predict"><br><br>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required placeholder="Enter your name">
+    
+
+            <label for="age">Age :</label>
+            <input type="number" id="age" name="age" required  placeholder="Enter age"><br>
+    
+            <label for="sex_male">Sex (1 for Male, 0 for Female):</label>
+            <input type="number" id="sex_male" name="sex_male" required min="0" max="1" placeholder="1 for Male, 0 for Female"><br>
+    
+            <label for="cigs_per_day">Cigarettes Per Day:</label>
+            <input type="number" id="cigs_per_day" name="cigs_per_day" required min="0" placeholder="Enter daily cigarette count"><br>
+    
+            <label for="tot_chol">Total Cholesterol :</label>
+            <input type="number" id="tot_chol" name="tot_chol" required  placeholder="Enter cholesterol level"><br>
+    
+            <label for="sys_bp">Systolic Blood Pressure :</label>
+            <input type="number" id="sys_bp" name="sys_bp" required  placeholder="Enter systolic BP">
+            <br>
+            <label for="glucose">Glucose:</label>
+            <input type="number" id="glucose" name="glucose" required  placeholder="Enter glucose level">
+            <br
+            <label for="save-data">Do you want to save your data?</label>
+            <input type="radio" id="save-yes" name="save-data" value="yes" required> Yes
+            <input type="radio" id="save-no" name="save-data" value="no" required> No   <br><br>
+    
+            <button type="submit">Predict</button>
+        </form>
+
+        
+            
+        
+        
+        <!-- Updated result section -->
+        <div id="result" class="result"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#prediction-form').on('submit', function(e) {
+                e.preventDefault();
+
+                const data = {
+                    age: $('#age').val(),
+                    sex_male: $('#sex_male').val(),
+                    cigsPerDay: $('#cigs_per_day').val(),
+                    totChol: $('#tot_chol').val(),
+                    sysBP: $('#sys_bp').val(),
+                    glucose: $('#glucose').val()
+                };
+
+                $.ajax({
+                    url: '/predict',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function(response) {
+                        if (response.TenYearCHD === 0) {
+                            $('#result').html('<h4>No Heart Disease Detected</h4>');
+                        } else {
+                            $('#result').html(
+                                `<h4>Heart Disease Detected</h4>
+                                 <p>Disease Type: ${response.DiseaseType}</p>`
+                            );
+                        }
+                    },
+                    error: function() {
+                        $('#result').html('<h4>Error making prediction. Please try again.</h4>');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

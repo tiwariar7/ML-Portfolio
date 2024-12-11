@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="header">
+        <h2>Predict Heart Disease Risk</h2>
+        <p>AI-Powered Health Prediction Tool</p>
+    </div>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/about">About Project</a>
+        <a href="/contact">Contact</a>
+        <a href="/data">DataBase</a>
+        {% if 'user' in session %}
+            <a href="/dashboard" class="account">
+                <img src="{{ url_for('static', filename='a.png') }}" alt="Account" style="width: 30px; height: 30px; border-radius: 50%;"></a>
+        {% else %}
+            <a href="/login" style="float: right;">Login</a>
+        {% endif %}
+    </div>
+    <h2>Welcome, {{ user }}</h2>
+    <a href="/logout">Logout</a>
+</body>
+</html>

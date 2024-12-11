@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Project - Disease Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('{{ url_for("static", filename="bg.png") }}');
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .header {
+            background-color: #00539C;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .nav a:hover {
+            background-color: #00539C;
+        }
+        .container {
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            margin: 40px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #00539C;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+        }
+        .download-links {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 50px;
+        }
+
+        /* Style for each download box */
+        .download-box {
+            display: inline-block;
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border: 2px solid #000;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition for background and text color */
+        }
+
+        /* Hover effect for the boxes */
+        .download-box:hover {
+            background-color: #003366; /* Deep blue */
+        }
+
+        /* Text color change on hover */
+        .download-box:hover a {
+            color: black; /* Change the text color to black */
+        }
+
+        /* Optional: Initial text color */
+        .download-box a {
+            color: inherit; /* Inherit color from the box */
+            text-decoration: none; /* Remove underline from the link */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Disease Predictor</h1>
+        <p>AI-Powered Health Prediction Tool</p>
+    </div>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/about">About Project</a>
+        <a href="/contact">Contact</a>
+    </div>
+    <div class="container">
+        <h2>About the Project</h2><br><br>
+        <p>This project aims to predict the likelihood of a patient having a certain disease based on their symptoms. Using a dataset sourced from Kaggle, the model analyzes a comprehensive list of symptoms, such as itching, skin rash, continuous sneezing, joint pain, high fever, and fatigue, among others. By leveraging advanced Machine Learning algorithms, the application identifies patterns in the data to provide accurate predictions of diseases, including but not limited to fungal infections, allergies, diabetes, and bronchial asthma.
+            <br>
+            Our goal is to enhance early detection and medical decision-making by providing a reliable, symptom-based diagnostic tool. This tool can be particularly beneficial for preliminary screenings, guiding users to seek appropriate medical attention promptly.</p>
+        <br><br>
+        <div class="problem-statement">
+            <h1>Problem Statement of Project</h1>
+            <p>
+                Develop an advanced machine learning solution to accurately predict human diseases based on reported symptoms. 
+                This solution will leverage multiple machine learning models to enhance prediction reliability and ensure robust inference. 
+                By integrating diverse algorithms, the approach aims to optimize diagnostic precision and provide seamless, user-friendly 
+                predictions in JSON format for real-world applicability. The model's performance will be rigorously evaluated using 
+                proven metrics to ensure high-quality results.
+            </p>
+        </div><br><br>
+        <p><strong>Approach Used:</strong></p><br>
+        <p><strong>Conceived Data Preparation:</strong></p><br>
+        <p>Gathered and engineered a dataset from Kaggle, comprising two CSV files—one for training and another for testing. Integrated 133 columns, where 132 represent symptoms and the final column denotes prognosis.</p>
+        <br>
+        <p><strong>Crafted Data Cleaning Process:</strong></p><br>
+        <p>Diagnosed data quality and engineered transformations to ensure precision. The prognosis column, originally in string format, was customized into numerical values using a label encoder to enable model compatibility.</p>
+        <br>
+        <p><strong>Developed Machine Learning Models:</strong></p><br>
+        <p>Formulated a plan to train Support Vector Classifier, Naive Bayes Classifier, and Random Forest Classifier. Innovated a method using a confusion matrix to forecast model performance effectively.</p>
+        <br>
+        <p><strong>Engineered Prediction Pipeline:</strong></p><br>
+        <p>Devised a strategy to combine predictions from all three models, enhancing robustness and accuracy. Crafted a user-friendly function that takes symptom input, diagnoses disease using trained models, and outputs predictions in JSON format.</p>
+        <br>
+        <p><strong>Implementation Guidelines:</strong></p><br>
+        <p>Planned the workflow: Download the train and test datasets, place them in the dataset folder, and execute code cells in Jupyter Notebook for clarity and visualized results.</p>
+        <br><br>
+        <img src="{{ url_for('static', filename='flowchart.png') }}" alt="Flowchart Diagram">
+        <br><br>
+        <p><strong>Conceptualized Dataset Utilization:</strong></p><br>
+        <p>The dataset is divided into three subsets: Training Data, Test Data, and Validation Data to ensure a well-structured and effective approach.</p>
+        <br>
+        <p><strong>Engineered Data Preprocessing:</strong></p><br>
+        <p>The Training Data (80%) undergoes preprocessing and is split to prepare for model training and evaluation.</p>
+        <br>
+        <p><strong>Innovated Model Selection Process:</strong></p><br>
+        <p>K-Fold Cross-Validation is performed on the training data to identify the most effective model.</p>
+        <br>
+        <p><strong>Devised Multi-Model Training:</strong></p><br>
+        <p>Three machine learning models are trained in parallel: Support Vector Machine (SVM) Classifier, Naive Bayes Classifier, and Random Forest Classifier.</p>
+        <br>
+        <p><strong>Customized Metrics Computation:</strong></p><br>
+        <p>The Test Data (20%) is used to compute performance metrics for each trained model, ensuring precise evaluation of individual models.</p>
+        <br>
+        <p><strong>Forecasted Predictions on Validation Data:</strong></p><br>
+        <p>Each trained classifier predicts outcomes on the Validation Dataset. Predictions from all three models are compared and aggregated.</p>
+        <br>
+        <p><strong>Integrated Final Prediction:</strong></p><br>
+        <p>The mode of all predictions is computed, combining results to generate the Final Prediction, enhancing accuracy and reliability.</p>
+        <br>
+        <p>The given flowchart illustrates a well-constructed pipeline for implementing robust and accurate predictions using a combination of preprocessing, model training, and ensemble techniques.</p>
+    <br><br>
+    <h1><strong>List of Input Symptoms </strong> </h1>
+    <div class="symptoms-container">
+        <p class="symptoms">
+            <i>Itching, skin rash, nodal skin eruptions, continuous sneezing, shivering, chills, joint pain, 
+            stomach pain, acidity, ulcers on tongue, muscle wasting, vomiting, burning micturition, spotting urination, fatigue, 
+            weight gain, anxiety, cold hands and feet, mood swings, weight loss, restlessness, lethargy, patches in throat, 
+            irregular sugar level, cough, high fever, sunken eyes, breathlessness, sweating, dehydration, indigestion, headache, 
+            yellowish skin, dark urine, nausea, loss of appetite, pain behind the eyes, back pain, constipation, abdominal pain, 
+            diarrhoea, mild fever, yellow urine, yellowing of eyes, acute liver failure, fluid overload, swelling of stomach, 
+            swelled lymph nodes, malaise, blurred and distorted vision, phlegm, throat irritation, redness of eyes, sinus pressure, 
+            runny nose, congestion, chest pain, weakness in limbs, fast heart rate, pain during bowel movements, pain in anal region, 
+            bloody stool, irritation in anus, neck pain, dizziness, cramps, bruising, obesity, swollen legs, swollen blood vessels, 
+            puffy face and eyes, enlarged thyroid, brittle nails, swollen extremities, excessive hunger, extra-marital contacts, 
+            drying and tingling lips, slurred speech, knee pain, hip joint pain, muscle weakness, stiff neck, swelling joints, 
+            movement stiffness, spinning movements, loss of balance, unsteadiness, weakness of one body side, loss of smell, bladder 
+            discomfort, foul smell of urine, continuous feel of urine, passage of gases, internal itching, toxic look (typhos), 
+            depression, irritability, muscle pain, altered sensorium, red spots over body, belly pain, abnormal menstruation, 
+            dischromic patches, watering from eyes, increased appetite, polyuria, family history, mucoid sputum, rusty sputum, 
+            lack of concentration, visual disturbances, receiving blood transfusion, receiving unsterile injections, coma, stomach 
+            bleeding, distention of abdomen, history of alcohol consumption, fluid overload, blood in sputum, prominent veins on calf, 
+            palpitations, painful walking, pus-filled pimples, blackheads, scarring, skin peeling, silver-like dusting, small dents 
+            in nails, inflammatory nails, blister, red sore around nose, yellow crust ooze, prognosis.
+            </i>
+        </p>
+    </div><br><br>
+    <div class="download-links">
+        <div class="download-box">
+            <a href="{{ url_for('static', filename='Heart Disease Predector.ipynb') }}" download>
+                <strong>Download Notebook (.ipynb)</strong>
+            </a>
+        </div>
+
+        <div class="download-box">
+            <a href="{{ url_for('static', filename='framingham_modified.csv') }}" download>
+                <strong>Dataset (csv)</strong>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
