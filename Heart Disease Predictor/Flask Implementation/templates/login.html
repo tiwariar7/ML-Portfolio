@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            display: flex;
+            width: 800px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .welcome {
+            background: #00c1a1;
+            color: #fff;
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        .welcome h2 {
+            margin-bottom: 10px;
+        }
+        .welcome p {
+            margin-top: 0;
+        }
+        .form-container {
+            flex: 1;
+            padding: 40px;
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-container input {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-container button {
+            background: #00c1a1;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background: #009b85;
+        }
+        .oauth-buttons a {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            background: #ddd;
+            color: black;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Predict Heart Disease Risk</h2>
+        <p>AI-Powered Health Prediction Tool</p>
+    </div>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/about">About Project</a>
+        <a href="/contact">Contact</a>
+        <a href="/data">DataBase</a>
+        {% if 'user' in session %}
+            <a href="/dashboard" class="account">
+                <img src="{{ url_for('static', filename='a.png') }}" alt="Account" style="width: 30px; height: 30px; border-radius: 50%;"></a>
+        {% else %}
+            <a href="/login" style="float: right;">Login</a>
+        {% endif %}
+    </div>
+    <div class="login-container">
+        <div class="welcome">
+            <h2>Welcome Back!</h2>
+            <p>To keep connected with us, please login with your personal info</p>
+            <form action="/signup" method="POST">
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container">
+            <form action="/login" method="POST">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Log In</button>
+            </form>
+            <h3>Or</h3>
+            <div class="oauth-buttons">
+                <a href="/login/google">Sign in with Google</a>
+                <a href="/login/github">Sign in with GitHub</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
